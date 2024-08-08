@@ -18,12 +18,10 @@ val withACustomParameter: BuildType.() -> Unit = {
     }
 }
 
-val dotNetBuild: BuildType.() -> BuildType = {
+val dotNetBuild: BuildType.() -> Unit = {
     steps {
         dotnetBuild {
             configuration = "build"
         }
     }
-
-    this
 }
