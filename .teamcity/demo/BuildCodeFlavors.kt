@@ -12,10 +12,18 @@ val javaBuild: BuildType.() -> Unit = {
     }
 }
 
-val dotNetBuild: BuildType.() -> Unit = {
+val withACustomParameter: BuildType.() -> Unit = {
+    params {
+        param("some", "value")
+    }
+}
+
+val dotNetBuild: BuildType.() -> BuildType = {
     steps {
         dotnetBuild {
             configuration = "build"
         }
     }
+
+    this
 }

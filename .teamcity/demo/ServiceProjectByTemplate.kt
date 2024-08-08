@@ -9,7 +9,7 @@ import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 class ServiceProjectByTemplate(
     projectName: String,
     repoUrl: String,
-    buildTemplate: Template
+    vararg buildTemplates: Template
 ) : Project({
     name = projectName
 
@@ -45,7 +45,7 @@ class ServiceProjectByTemplate(
                 root(vcsRoot)
             }
 
-            templates += buildTemplate
+            templates += buildTemplates
         }
     }
 

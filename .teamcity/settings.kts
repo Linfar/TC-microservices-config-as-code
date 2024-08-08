@@ -1,9 +1,8 @@
-import demo.ServiceProjectByCode
-import demo.ServiceProjectByTemplate
-import demo.dotNetBuild
+import demo.*
 import demo.templates.DotNetBuild
 import demo.templates.JavaBuild
 import jetbrains.buildServer.configs.kotlin.project
+import jetbrains.buildServer.configs.kotlin.projectFeatures.dockerRegistry
 import jetbrains.buildServer.configs.kotlin.version
 
 /*
@@ -37,4 +36,14 @@ project {
     subProject(ServiceProjectByTemplate("Auth Service", "First service URL", JavaBuild))
 
     subProject(ServiceProjectByCode("Other Service", "Second service URL", dotNetBuild))
+
+    subProject(ServiceProjectByCode("Third Service", "Third service URL", javaBuild, withACustomParameter))
+
+    subProject(ServiceProjectByCode("And even with an inlined customization", "Forth service URL", javaBuild, {
+        features {
+            dockerRegistry {
+                url = "hub.docker.com"
+            }
+        }
+    }))
 }

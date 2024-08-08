@@ -8,7 +8,7 @@ import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 class ServiceProjectByCode(
     projectName: String,
     repoUrl: String,
-    buildInitializer: (BuildType) -> Unit
+    vararg buildInitializers: (BuildType) -> Unit
 ) : Project({
     name = projectName
 
@@ -44,7 +44,7 @@ class ServiceProjectByCode(
                 root(vcsRoot)
             }
 
-            buildInitializer.invoke(this)
+            buildInitializers.forEach { it.invoke(this) }
         }
     }
 
