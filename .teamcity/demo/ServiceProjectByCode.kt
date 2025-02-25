@@ -46,6 +46,12 @@ class ServiceProjectByCode(
 
             buildInitializers.forEach { it.invoke(this) }
         }
+
+        for (i in 0..100) {
+            buildType {
+                name = "Build $i"
+            }
+        }
     }
 
     var deployUat: BuildType? = null
