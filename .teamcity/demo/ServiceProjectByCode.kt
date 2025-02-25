@@ -40,6 +40,7 @@ class ServiceProjectByCode(
         for (i in 0..100) {
             list += buildType {
                 name = "Build $i"
+                id("${projectName.toId()}_build$i")
             }
         }
 
