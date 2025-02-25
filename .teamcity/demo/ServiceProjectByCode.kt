@@ -1,6 +1,7 @@
 package demo
 
 import jetbrains.buildServer.configs.kotlin.BuildType
+import jetbrains.buildServer.configs.kotlin.DslContext
 import jetbrains.buildServer.configs.kotlin.Project
 import jetbrains.buildServer.configs.kotlin.toId
 import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
@@ -14,17 +15,18 @@ class ServiceProjectByCode(
 
     id(projectName.toId())
 
-    val vcsRoot = GitVcsRoot {
-        name = "$projectName repository"
-
-        id("${projectName.toId()}_repo")
-
-        url = repoUrl
-
-        authMethod = customPrivateKey {
-            customKeyPath = "TODO"
-        }
-    }
+    val vcsRoot = DslContext.settingsRoot
+//        GitVcsRoot {
+//        name = "$projectName repository"
+//
+//        id("${projectName.toId()}_repo")
+//
+//        url = repoUrl
+//
+//        authMethod = customPrivateKey {
+//            customKeyPath = "TODO"
+//        }
+//    }
 
     vcsRoot(vcsRoot)
 
