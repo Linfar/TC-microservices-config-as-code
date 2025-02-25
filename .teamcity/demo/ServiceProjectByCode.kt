@@ -28,7 +28,7 @@ class ServiceProjectByCode(
 //        }
 //    }
 
-    vcsRoot(vcsRoot)
+//    vcsRoot(vcsRoot)
 
     var build: BuildType? = null
 
