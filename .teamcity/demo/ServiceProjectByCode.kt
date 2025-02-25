@@ -1,6 +1,7 @@
 package demo
 
 import jetbrains.buildServer.configs.kotlin.BuildType
+import jetbrains.buildServer.configs.kotlin.DslContext
 import jetbrains.buildServer.configs.kotlin.Project
 import jetbrains.buildServer.configs.kotlin.toId
 import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
@@ -14,19 +15,19 @@ class ServiceProjectByCode(
 
     id(projectName.toId())
 
-    val vcsRoot = GitVcsRoot {
-        name = "$projectName repository"
+//    val vcsRoot = GitVcsRoot {
+//        name = "$projectName repository"
+//
+//        id("${projectName.toId()}_repo")
+//
+//        url = repoUrl
+//
+//        authMethod = customPrivateKey {
+//            customKeyPath = "TODO"
+//        }
+//    }
 
-        id("${projectName.toId()}_repo")
-
-        url = repoUrl
-
-        authMethod = customPrivateKey {
-            customKeyPath = "TODO"
-        }
-    }
-
-    vcsRoot(vcsRoot)
+//    vcsRoot(vcsRoot)
 
     var build: BuildType? = null
 
@@ -35,22 +36,26 @@ class ServiceProjectByCode(
 
         id("${projectName.toId()}_dev")
 
+        val list = mutableListOf<BuildType>()
+        for (i in 0..100) {
+            list += buildType {
+                name = "Build $i"
+            }
+        }
+
         build = buildType {
             name = "Build"
 
             id("${projectName.toId()}_dev_build")
 
             vcs {
-                root(vcsRoot)
+                DslContext.settingsRoot
+//                root(vcsRoot)
             }
 
             buildInitializers.forEach { it.invoke(this) }
-        }
 
-        for (i in 0..100) {
-            buildType {
-                name = "Build $i"
-            }
+            list.forEach { dependencies { snapshot(it) {} } }
         }
     }
 
